@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <TableExample />
+    <StockView />
   </div>
 </template>
 
 <script>
 
-import TableExample from './components/TableExample.vue';
+import StockView from './views/StockView.vue';
 
 export default {
 
   components: {
-    TableExample
+    StockView
   }
 }
 </script>
