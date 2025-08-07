@@ -7,7 +7,7 @@ Vue.config.productionTip = false
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 import 'element-ui/lib/theme-chalk/index.css'
-
+import '@/assets/styles/global-background.css'
 
 new Vue({
   router,

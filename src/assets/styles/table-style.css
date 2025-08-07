@@ -1,0 +1,33 @@
+/* table-style.css */
+.el-table {
+  max-width: 900px;
+  margin: 20px auto 40px;
+  background-color: rgba(255, 255, 255, 0.9); /* 半透明白背景 */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  font-size: 14px;
+  color: var(--text-color);
+  font-family: var(--font-family);
+  overflow: hidden;
+}
+
+.el-table th {
+  background: linear-gradient(90deg, #a2c4f8, #70a1ff);
+  color: white !important;
+  font-weight: 600;
+}
+
+.el-table tr:nth-child(odd) {
+  background-color: rgba(240, 244, 255, 0.5);
+}
+
+.el-table tr:hover {
+  background-color: #f0f4ff;
+}
+
+.el-pagination {
+  max-width: 900px;
+  margin: 0 auto 40px;
+  text-align: center;
+  user-select: none;
+}

@@ -42,7 +42,9 @@
 </template>
 
 <script>
+
 import axios from 'axios'
+import '@/assets/styles/table-style.css'
 
 export default {
   data() {

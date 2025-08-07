@@ -1,0 +1,24 @@
+/* global-background.css */
+:root {
+  --bg-gradient-1: #f0f4f8;
+  --bg-gradient-2: #d9e2ec;
+  --bg-gradient-3: #bcccdc;
+  --text-color: #333;
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body, #app {
+  min-height: 100vh;
+  margin: 0;
+  background: linear-gradient(-45deg, var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-gradient-1), var(--bg-gradient-3));
+  background-size: 400% 400%;
+  animation: gradientBG 20s ease infinite;
+  color: var(--text-color);
+  font-family: var(--font-family);
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
