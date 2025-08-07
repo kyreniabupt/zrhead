@@ -21,8 +21,7 @@
 <script>
 import * as echarts from 'echarts'
 import axios from 'axios'
-// 导入外部 CSS 样式
-import '@/assets/styles/zhe-xian.css'
+
 
 export default {
   name: 'OpenPriceZheXian',

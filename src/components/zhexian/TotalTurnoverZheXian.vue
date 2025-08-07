@@ -21,7 +21,7 @@
 <script>
 import * as echarts from 'echarts'
 import axios from 'axios'
-import '@/assets/styles/zhe-xian.css'  // 通用样式模块
+
 
 export default {
   name: 'TotalTurnoverZheXian',

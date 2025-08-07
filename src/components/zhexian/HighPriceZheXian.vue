@@ -21,8 +21,7 @@
 <script>
 import * as echarts from 'echarts'
 import axios from 'axios'
-// 导入外部 CSS 样式
-import '@/assets/styles/zhe-xian.css'
+import '@/assets/styles/zhe-xian.css'  // 通用样式模块
 
 export default {
   name: 'HighPriceZheXian',
