@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import StockView from '@/views/StockView.vue'  // 导入视图组件
 import ZheXian from '@/views/ZheXianView.vue'
-
+import DistributionView from '@/views/DistributionView.vue'
 Vue.use(Router)  // 注册路由插件，让 Vue 知道你要用路由功能
 
 export default new Router({
@@ -22,7 +22,12 @@ export default new Router({
       path: '/overview/option2',
       name: 'OverviewOption2',
       component: ZheXian
-    }
+    },
+    {
+      path: '/overview/option3',
+      name: 'OverviewOption3',
+      component: DistributionView
+    },
     
   ],
 })
