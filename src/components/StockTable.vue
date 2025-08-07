@@ -1,5 +1,20 @@
 <template>
   <div>
+    <!-- 日期选择器 + 查询按钮 -->
+    <div style="margin-bottom: 20px;">
+      <el-date-picker
+        v-model="searchDate"
+        type="date"
+        placeholder="选择交易日期"
+        format="yyyy-MM-dd"
+        value-format="yyyy-MM-dd"
+        style="margin-right: 10px;"
+      />
+      <el-button type="primary" @click="handleSearch">查询</el-button>
+      <el-button @click="resetSearch">重置</el-button>
+    </div>
+
+    <!-- 表格 -->
     <el-table :data="tableData" style="width: 100%">
       <el-table-column prop="date" label="交易日期" />
       <el-table-column prop="open" label="开盘价" />
@@ -34,25 +49,45 @@ export default {
       currentPage: 1,
       pageSize: 10,
       total: 0,
+      searchDate: '',  // 增加搜索日期字段
     }
   },
   methods: {
     fetchData(page = 1) {
+      const params = {
+        page: page,
+        page_size: this.pageSize,
+      }
+
+      if (this.searchDate) {
+        params.date = this.searchDate
+      }
+
       axios
-        .get('http://127.0.0.1:8000/api/stocks/', {
-          params: {
-            page: page,
-            page_size: this.pageSize,
-          },
-        })
+        .get('http://127.0.0.1:8000/api/stocks/', { params })
         .then((res) => {
           this.tableData = res.data.results
           this.total = res.data.count
           this.currentPage = page
         })
+        .catch((err) => {
+          this.tableData = []
+          this.total = 0
+          console.error('查询失败:', err)
+        })
     },
+
     handlePageChange(page) {
       this.fetchData(page)
+    },
+
+    handleSearch() {
+      this.fetchData(1)
+    },
+
+    resetSearch() {
+      this.searchDate = ''
+      this.fetchData(1)
     },
   },
   mounted() {
