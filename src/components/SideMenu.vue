@@ -3,8 +3,8 @@
     <el-menu :default-openeds="['1','2','3']" router :default-active="$route.path">
       <el-submenu index="1">
         <template slot="title"><i class="el-icon-message"></i>数据总览</template>
-        <el-menu-item index="/overview/option1">选项1</el-menu-item>
-        <el-menu-item index="/overview/option2">选项2</el-menu-item>
+        <el-menu-item index="/overview/option1">后台统计</el-menu-item>
+        <el-menu-item index="/overview/option2">变化趋势统计</el-menu-item>
       </el-submenu>
       <el-submenu index="2">
         <template slot="title"><i class="el-icon-menu"></i>导航二</template>

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import StockView from '@/views/StockView.vue'  // 导入视图组件
+import ZheXian from '@/views/ZheXianView.vue'
 
 Vue.use(Router)  // 注册路由插件，让 Vue 知道你要用路由功能
 
@@ -13,11 +14,15 @@ export default new Router({
       component: StockView,  // 显示 StockView 组件
     },
     {
-      path: 'overview/option1',  // 访问 /overview/option1 时
+      path: '/overview/option1',  // 访问 /overview/option1 时
       name: 'OverviewOption1',  // 路由名称
       component: StockView,  // 显示 StockView 组件
+    },
+    {
+      path: '/overview/option2',
+      name: 'OverviewOption2',
+      component: ZheXian
     }
-    // 这里可以继续添加其他路由规则，比如：
-    // { path: '/about', component: AboutView }
+    
   ],
 })

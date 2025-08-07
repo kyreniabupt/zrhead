@@ -1,18 +1,16 @@
 <template>
   <div id="app">
-    <StockView />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 
-import StockView from './views/StockView.vue';
+
 
 export default {
-
-  components: {
-    StockView
-  }
+    name: 'App'
+  
 }
 </script>
 

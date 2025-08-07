@@ -8,6 +8,7 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 import 'element-ui/lib/theme-chalk/index.css'
 
+
 new Vue({
   router,
   render: h => h(App),

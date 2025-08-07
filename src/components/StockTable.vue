@@ -1,11 +1,13 @@
 <template>
   <div>
-    <!-- 日期选择器 + 查询按钮 -->
+    <!-- 日期区间选择器 + 查询按钮 -->
     <div style="margin-bottom: 20px;">
       <el-date-picker
-        v-model="searchDate"
-        type="date"
-        placeholder="选择交易日期"
+        v-model="dateRange"
+        type="daterange"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期"
+        range-separator="至"
         format="yyyy-MM-dd"
         value-format="yyyy-MM-dd"
         style="margin-right: 10px;"
@@ -26,6 +28,7 @@
       <el-table-column prop="turnover_lacs" label="成交额(万)" />
     </el-table>
 
+    <!-- 分页 -->
     <el-pagination
       background
       layout="prev, pager, next, jumper"
@@ -42,14 +45,13 @@
 import axios from 'axios'
 
 export default {
-  name: 'StockTable',
   data() {
     return {
       tableData: [],
       currentPage: 1,
       pageSize: 10,
       total: 0,
-      searchDate: '',  // 增加搜索日期字段
+      dateRange: [],  // [开始日期, 结束日期]
     }
   },
   methods: {
@@ -59,34 +61,31 @@ export default {
         page_size: this.pageSize,
       }
 
-      if (this.searchDate) {
-        params.date = this.searchDate
+      if (this.dateRange.length === 2) {
+        params.start_date = this.dateRange[0]
+        params.end_date = this.dateRange[1]
       }
 
       axios
         .get('http://127.0.0.1:8000/api/stocks/', { params })
-        .then((res) => {
+        .then(res => {
           this.tableData = res.data.results
           this.total = res.data.count
           this.currentPage = page
         })
-        .catch((err) => {
+        .catch(() => {
           this.tableData = []
           this.total = 0
-          console.error('查询失败:', err)
         })
     },
-
     handlePageChange(page) {
       this.fetchData(page)
     },
-
     handleSearch() {
       this.fetchData(1)
     },
-
     resetSearch() {
-      this.searchDate = ''
+      this.dateRange = []
       this.fetchData(1)
     },
   },
