@@ -21,8 +21,8 @@
       </el-submenu>
 
       <el-submenu index="2">
-        <template slot="title"><i class="el-icon-menu"></i>导航二</template>
-        <el-menu-item index="/nav2/option1">选项1</el-menu-item>
+        <template slot="title"><i class="el-icon-menu"></i>股票咨询</template>
+        <el-menu-item index="/nav2/option1">智能问答</el-menu-item>
         <el-menu-item index="/nav2/option2">选项2</el-menu-item>
       </el-submenu>
 

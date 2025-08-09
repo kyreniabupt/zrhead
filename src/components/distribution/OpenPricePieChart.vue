@@ -1,12 +1,12 @@
 <template>
-<div class="PieChart-card">
-  <div ref="chartRef" style="width: 100%; height: 400px;"></div>
-</div>
+  <div class="PieChart-card">
+    <div ref="chartRef" style="width: 100%; height: 400px;"></div>
+  </div>
 </template>
 
 <script>
 import * as echarts from 'echarts';
-import '@/assets/styles/pie-chart.css'; // 通用样式模块
+
 export default {
   name: 'OpenPricePieChart',
   props: {
@@ -18,15 +18,20 @@ export default {
   data() {
     return {
       chartInstance: null,
+      resizeHandler: null,
     };
   },
   watch: {
     openPrices: {
       handler() {
-        this.updateChart();
+        // 只在实例存在时更新图表
+        if (this.chartInstance) {
+          this.updateChart();
+        }
       },
       deep: true,
-      immediate: true,
+      // 移除 immediate 防止初始化前调用
+      // immediate: true,
     },
   },
   methods: {
@@ -38,7 +43,6 @@ export default {
         '150-200': 0,
         '>200': 0,
       };
-
       openPrices.forEach(price => {
         if (price < 50) bins['<50']++;
         else if (price < 100) bins['50-100']++;
@@ -46,29 +50,23 @@ export default {
         else if (price < 200) bins['150-200']++;
         else bins['>200']++;
       });
-
-      return Object.entries(bins).map(([name, value]) => ({
-        name,
-        value,
-      }));
+      return Object.entries(bins).map(([name, value]) => ({ name, value }));
     },
 
     updateChart() {
-      if (!this.chartInstance) {
-        this.chartInstance = echarts.init(this.$refs.chartRef);
+      // 先检查 DOM 是否存在
+      if (!this.$refs.chartRef) {
+        console.warn('chartRef DOM 不存在，无法更新图表');
+        return;
       }
-
       const pieData = this.groupOpenPrices(this.openPrices);
-
       const option = {
         title: {
           text: '开盘价区间统计',
           left: 'center',
           textStyle: { color: '#000' },
         },
-        tooltip: {
-          trigger: 'item',
-        },
+        tooltip: { trigger: 'item' },
         legend: {
           orient: 'vertical',
           left: 'left',
@@ -87,29 +85,36 @@ export default {
                 shadowColor: 'rgba(0, 0, 0, 0.5)',
               },
             },
-            label: {
-              color: '#000',
-            },
+            label: { color: '#000' },
           },
         ],
       };
-
       this.chartInstance.setOption(option);
     },
   },
   mounted() {
-    this.chartInstance = echarts.init(this.$refs.chartRef);
-    this.updateChart();
-    window.addEventListener('resize', this.chartInstance.resize);
+    if (this.$refs.chartRef) {
+      this.chartInstance = echarts.init(this.$refs.chartRef);
+      this.updateChart();
+      this.resizeHandler = () => {
+        if (this.chartInstance) {
+          this.chartInstance.resize();
+        }
+      };
+      window.addEventListener('resize', this.resizeHandler);
+    } else {
+      console.warn('chartRef DOM 未找到，无法初始化 ECharts');
+    }
   },
   beforeDestroy() {
     if (this.chartInstance) {
-      window.removeEventListener('resize', this.chartInstance.resize);
+      window.removeEventListener('resize', this.resizeHandler);
       this.chartInstance.dispose();
+      this.chartInstance = null;
     }
   },
 };
 </script>
 
-<style scoped>
-</style>
+
+<style scoped></style>
